@@ -1,0 +1,2 @@
+export const INNER_LIST_LOADING = 'INNER_LIST_LOADING';
+export const INNER_LIST_GET = 'INNER_LIST_GET';
