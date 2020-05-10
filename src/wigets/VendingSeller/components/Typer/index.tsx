@@ -1,13 +1,14 @@
-import React from "react";
-import {renderNumbers} from "./helper";
+import React, {FC, MouseEvent} from "react";
+import CSS from 'csstype';
+
+const wrapper: CSS.Properties = {
+    display: 'flex',
+    flexWrap: "wrap",
+    width: "370px",
+    justifyContent: 'flex-end'
+}
 
 const styles = {
-    wrapper: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        width: 370,
-        justifyContent: 'flex-end'
-    },
     button: {
         padding: 30,
         border: '1px solid black',
@@ -25,10 +26,17 @@ const styles = {
     }
 };
 
-export default ({onClickNumber, onClickBuy, isCorrectNmb, onReset}) => {
+type TTyper = {
+    onClickNumber: (text: number) => void,
+    onClickBuy: () => void,
+    onReset: () => void,
+    isCorrectNmb: null | boolean
+}
 
-    const clickNumber = (e) => {
-        onClickNumber(e.target.innerText)
+const Typer: FC<TTyper> = ({onClickNumber, onClickBuy, isCorrectNmb, onReset}) => {
+
+    const clickNumber = (e: MouseEvent<HTMLElement>) => {
+        onClickNumber(+e.currentTarget.innerText)
     }
 
     const renderNumbers = () => {
@@ -47,7 +55,7 @@ export default ({onClickNumber, onClickBuy, isCorrectNmb, onReset}) => {
 
     return (
         <>
-            <div style={styles.wrapper}>
+            <div style={wrapper}>
                 {
                     renderNumbers()
                 }
@@ -61,3 +69,5 @@ export default ({onClickNumber, onClickBuy, isCorrectNmb, onReset}) => {
         </>
     )
 }
+
+export default Typer;

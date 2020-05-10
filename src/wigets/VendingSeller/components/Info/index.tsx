@@ -1,4 +1,4 @@
-import React from "react";
+import React, {FC} from "react";
 
 const styles = {
     wrapper: {
@@ -11,24 +11,26 @@ const styles = {
     }
 };
 
-const renderStatus = ({number, status}) => {
+const renderStatus = (label: string, status: null|boolean) => {
     if(status === null) {
         return 'Купите шоколадку!'
     }
 
     if(status) {
-        return 'Вы выбрали товар номер ' + number
+        return 'Вы выбрали товар номер ' + label
     }
 
     return 'Нет такого товара!'
 }
 
-export default ({number, status}) => {
+const Info:FC<{label: string, status: null|boolean}> = ({label, status}) => {
     return (
         <div style={styles.wrapper}>
-            <div>{renderStatus({number, status})}</div>
+            <div>{renderStatus(label, status)}</div>
             <div>Внесено денег: 100</div>
-            <div>Введен номер: {number}</div>
+            <div>Введен номер: {label}</div>
         </div>
     )
 }
+
+export default Info;

@@ -1,18 +1,22 @@
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 import {Page, Card, Loader} from 'UI';
+import {TAppState} from 'store/rootReducer'
 
 import {getListData} from './LiatAction'
 
 import { connect } from 'react-redux';
 
-class List extends PureComponent {
+import {TListProps} from './types'
+import {TinitialState} from "./ListReducer";
+
+class List extends Component<TListProps> {
 
     componentDidMount() {
         this.props.dispatch(getListData())
     }
 
     render() {
-        const {vendingListLoading, vendingList} = this.props;
+        const {vendingListLoading, vendingList = []} = this.props;
 
         if(vendingListLoading) {
             return (
@@ -40,7 +44,7 @@ class List extends PureComponent {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: TAppState): TinitialState => {
     const {listReducer} = state;
 
     return listReducer

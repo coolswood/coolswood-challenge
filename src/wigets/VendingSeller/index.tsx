@@ -5,8 +5,10 @@ import Catalog from './components/Catalog';
 import Info from './components/Info';
 import Typer from './components/Typer';
 
-const getAllId = (products) => {
-    let set = new Set();
+import {TProduct, TVendingSellerState, TVendingSellerProps} from './types';
+
+const getAllId = (products: Array<TProduct>) => {
+    let set: Set<number> = new Set();
 
     products.forEach(i => {
         set.add(i.id)
@@ -15,65 +17,67 @@ const getAllId = (products) => {
     return set
 }
 
-export default class VendingSeller extends Component {
-    constructor(props) {
-        super();
+export default class VendingSeller extends Component<TVendingSellerProps, TVendingSellerState> {
+    private setId: Set<number>;
+
+    constructor(props: TVendingSellerProps) {
+        super(props);
 
         this.setId = getAllId(props.products)
         this.state = {
-            number: '',
+            label: '',
             isCorrectNmb: null
         }
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps: TVendingSellerProps) {
         if(!isEqual(prevProps.products, this.props.products)) {
             this.onReset()
         }
     }
 
-    onClickNumber = (nmb) => {
-        const {number} = this.state;
+    onClickNumber = (nmb: number) => {
+        const {label} = this.state;
 
-        if(number.length === 4) return;
+        if(label.length === 4) return;
 
         this.setState({
-            number: number + nmb
+            label: label + nmb
         }, () => {
-            const {number} = this.state;
+            const {label} = this.state;
 
-            if(number.length === 4) {
+            if(label.length === 4) {
                 this.setState({
-                    isCorrectNmb: this.setId.has(+number)
+                    isCorrectNmb: this.setId.has(+label)
                 })
             }
         })
     }
 
     onClickBuy = () => {
-        this.props.onBuyProduct(this.state.number)
+        this.props.onBuyProduct(this.state.label)
     }
 
     onReset = () => {
         this.setState({
-            number: '',
+            label: '',
             isCorrectNmb: null
         })
     }
 
     render() {
-        const {number, isCorrectNmb} = this.state;
+        const {label, isCorrectNmb} = this.state;
         const {products} = this.props;
 
         return (
             <div style={{display: 'flex'}}>
                 <Catalog
-                    number={number}
+                    label={label}
                     products={products}
                 />
                 <div style={{width: '100%'}}>
                     <Info
-                        number={number}
+                        label={label}
                         status={isCorrectNmb}
                     />
                     <Typer

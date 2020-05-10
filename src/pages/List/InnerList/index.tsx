@@ -6,14 +6,18 @@ import {getInnerListData} from './InnerListAction'
 
 import { connect } from 'react-redux';
 
-class InnerList extends PureComponent {
+import {TInnerListProps} from './type'
+import {TAppState} from 'store/rootReducer'
+import {TInitialState} from "./InnerListReducer";
+
+class InnerList extends PureComponent<TInnerListProps> {
 
     componentDidMount() {
         this.props.dispatch(getInnerListData('chocolate'))
     }
 
     render() {
-        const {productsLoading, products} = this.props;
+        const {productsLoading, products = []} = this.props;
 
         if(productsLoading) {
             return (
@@ -34,7 +38,7 @@ class InnerList extends PureComponent {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: TAppState): TInitialState => {
     const {innerListReducer} = state;
 
     return innerListReducer

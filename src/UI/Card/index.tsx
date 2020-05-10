@@ -1,4 +1,4 @@
-import React from "react";
+import React, {FC} from "react";
 import { Link } from "react-router-dom";
 
 const styles = {
@@ -13,7 +13,14 @@ const styles = {
     }
 }
 
-export default ({name, text, img, id}) => (
+type CardProps = {
+    name: string,
+    text: string,
+    img: string,
+    id: string,
+}
+
+const Card: FC<CardProps> = ({name, text, img, id}) => (
     <Link to={id} style={styles.card}>
         <img style={styles.img} src={img} alt=""/>
         <div>
@@ -22,3 +29,5 @@ export default ({name, text, img, id}) => (
         </div>
     </Link>
 )
+
+export default Card;

@@ -1,4 +1,5 @@
-import React from "react";
+import React, {FC} from "react";
+import {TProduct} from '../../types'
 
 const styles = {
     wrapper: {
@@ -10,12 +11,12 @@ const styles = {
     }
 };
 
-export default ({products, number}) => {
+const Catalog:FC<{products: Array<TProduct>, label: string}> = ({products, label}) => {
     return (
         <div style={styles.wrapper}>
             {
                 products.map(i => (
-                    <div style={+number === i.id ? {border: '1px solid black'} : {}} key={i.id}>
+                    <div style={+label === i.id ? {border: '1px solid black'} : {}} key={i.id}>
                         <img style={styles.img} src={i.img} alt=""/>
                         <h3>{i.name}</h3>
                         <div>
@@ -29,3 +30,5 @@ export default ({products, number}) => {
         </div>
     )
 }
+
+export default Catalog;
