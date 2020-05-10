@@ -11,6 +11,7 @@ export const getListData = () => {
         })
 
         return mockFetch('/rs/v1/apparatus').then(({vendingList}) => {
+
             return dispatch({
                 type: VENDING_LIST_GET,
                 vendingList: vendingList

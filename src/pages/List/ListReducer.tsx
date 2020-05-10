@@ -12,7 +12,7 @@ export type TAction = {
     vendingList?: Array<TVendingList>
 }
 
-const initialState: TinitialState = {
+export const initialState: TinitialState = {
     vendingListLoading: false,
     vendingList: []
 };
